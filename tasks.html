@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ЕГЭ Математика — Задания 3 и 4/5</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ],
+            throwOnError: false
+        });"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f4f8; color: #2d3748; line-height: 1.7; padding: 2rem }
+        .c { max-width: 900px; margin: 0 auto }
+        h1 { text-align: center; font-size: 1.8rem; color: #2b6cb0; margin: .5rem 0 }
+        .sub { text-align: center; color: #718096; margin-bottom: 1.5rem }
+        
+        /* Filter Controls */
+        .controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap; }
+        .btn { padding: 10px 20px; border: none; border-radius: 20px; cursor: pointer; background: #fff; color: #4a5568; font-weight: 600; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .btn.active { background: #2b6cb0; color: #fff; }
+        .btn:hover { transform: translateY(-2px); }
+
+        .st { background: #ebf8ff; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center; color: #2b6cb0; border: 1px solid #bee3f8; }
+        
+        ol { list-style: none; padding: 0 }
+        ol li { display: none; align-items: flex-start; background: #fff; padding: 1rem 1.25rem; margin-bottom: .5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.08); transition: transform 0.2s; }
+        ol li.show { display: flex; }
+        ol li:hover { box-shadow: 0 4px 6px rgba(0,0,0,.12); transform: scale(1.01); }
+
+        ol li.cat-1 { border-left: 4px solid #805ad5; }
+        .cat-1 .n { background: #805ad5; }
+        ol li.cat-2 { border-left: 4px solid #ed8936; }
+        .cat-2 .n { background: #ed8936; }
+        /* Category specific borders */
+        ol li.cat-3 { border-left: 4px solid #e53e3e; }
+        ol li.cat-4 { border-left: 4px solid #38a169; }
+
+        .n { flex-shrink: 0; width: 2.8rem; height: 2rem; border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-size: .85rem; font-weight: 600; margin-right: 1rem; margin-top: .1rem }
+        .cat-3 .n { background: #e53e3e; }
+        .cat-4 .n { background: #38a169; }
+	/* Style for Equations (Cat-6) and Calculations (Cat-7) */
+        ol li.cat-6 { border-left: 4px solid #4299e1; }
+        ol li.cat-7 { border-left: 4px solid #805ad5; }
+        .cat-6 .n { background: #4299e1; }
+        .cat-7 .n { background: #805ad5; }
+
+        .t { flex: 1; font-size: 1.05rem; line-height: 1.8 }
+        .task-images { margin-top: .75rem; text-align: center }
+        .task-images img { max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,.1) }
+        
+        @media(max-width:600px) { body { padding: 1rem } ol li { padding: .75rem } .n { width: 2.2rem; height: 1.8rem; font-size: .7rem } }
+    </style>
+</head>
+<body>
+    <div class="c">
+        <h1>ЕГЭ Математика — Задания 3, 4 и 5</h1>
+        <p class="sub"></p>
+        
+        <div class="controls" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap;">
+            <button class="btn active" onclick="filterTasks('all')" style="padding: 10px 20px; border: none; border-radius: 20px; cursor: pointer; background: #2b6cb0; color: #fff; font-weight: 600;">Все задачи</button>
+            <button class="btn" onclick="filterTasks('cat-1')">Планиметрия (№1)</button>
+            <button class="btn" onclick="filterTasks('cat-2')">Векторы (№2)</button>
+            <button class="btn" onclick="filterTasks('cat-3')" style="padding: 10px 20px; border: none; border-radius: 20px; cursor: pointer; background: #fff; color: #4a5568; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Стереометрия (№3)</button>
+            <button class="btn" onclick="filterTasks('cat-4')" style="padding: 10px 20px; border: none; border-radius: 20px; cursor: pointer; background: #fff; color: #4a5568; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Вероятность (№4-5)</button>
+        </div>
+
+        <div class="st" style="background: #ebf8ff; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center; color: #2b6cb0; border: 1px solid #bee3f8;">
+            Задач отображено: <strong id="task-count">51</strong>
+        </div>
+
+        <ol id="task-list">
+            <li class="cat-1 show">
+                <span class="n">1.6</span>
+                <span class="t">Острый угол $B$ прямоугольного треугольника $ABC$ равен $65^\circ$. Найдите величину угла между высотой $CH$ и медианой $CM$, проведёнными из вершины прямого угла $C$. Ответ дайте в градусах.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.7</span>
+                <span class="t">Острый угол $B$ прямоугольного треугольника $ABC$ равен $21^\circ$. Найдите величину угла между биссектрисой $CD$ и медианой $CM$, проведёнными из вершины прямого угла $C$. Ответ дайте в градусах.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.8</span>
+                <span class="t">Острый угол $B$ прямоугольного треугольника $ABC$ равен $25^\circ$. Найдите величину угла между высотой $CH$ и биссектрисой $CD$, проведёнными из вершины прямого угла $C$. Ответ дайте в градусах.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.9</span>
+                <span class="t">Две стороны треугольника равны $15$ и $18$. Высота, опущенная на большую из этих сторон, равна $10$. Найдите длину высоты, опущенной на меньшую из этих сторон треугольника.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.10</span>
+                <span class="t">В треугольнике $ABC$ стороны $AC$ и $BC$ равны. Внешний угол при вершине $B$ равен $107^\circ$. Найдите угол $C$. Ответ дайте в градусах.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.11</span>
+                <span class="t">В треугольнике $ABC$ сторона $AB$ равна $3\sqrt{2}$, угол $C$ равен $135^\circ$. Найдите радиус описанной около этого треугольника окружности.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.12</span>
+                <span class="t">Площадь параллелограмма $ABCD$ равна $24$. Точка $E$ — середина стороны $AD$. Найдите площадь трапеции $BCDE$.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.13</span>
+                <span class="t">Площадь параллелограмма $ABCD$ равна $60$. Точка $E$ — середина стороны $AD$. Найдите площадь треугольника $ABE$.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.14</span>
+                <span class="t">Стороны параллелограмма равны $18$ и $20$. Высота, опущенная на меньшую из этих сторон, равна $10$. Найдите длину высоты, опущенной на большую сторону параллелограмма.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.15</span>
+                <span class="t">Основания трапеции равны $4$ и $10$. Найдите больший из отрезков, на которые делит среднюю линию этой трапеции одна из её диагоналей.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.16</span>
+                <span class="t">Найдите центральный угол, если он на $28^\circ$ больше острого вписанного угла, опирающегося на ту же дугу. Ответ дайте в градусах.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.17</span>
+                <span class="t">Центральный угол на $32^\circ$ больше острого вписанного угла, опирающегося на ту же дугу окружности. Найдите вписанный угол. Ответ дайте в градусах.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.18</span>
+                <span class="t">Отрезки $AC$ и $BD$ — диаметры окружности с центром $O$. Угол $ACB$ равен $41^\circ$. Найдите угол $AOD$. Ответ дайте в градусах.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.19</span>
+                <span class="t">Отрезки $AC$ и $BD$ — диаметры окружности с центром $O$. Угол $AOD$ равен $16^\circ$. Найдите вписанный угол $ACB$. Ответ дайте в градусах.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.20</span>
+                <span class="t">Четырёхугольник $ABCD$ вписан в окружность. Угол $ABC$ равен $103^\circ$, угол $CAD$ равен $42^\circ$. Найдите угол $ABD$. Ответ дайте в градусах.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.21</span>
+                <span class="t">Четырёхугольник $ABCD$ вписан в окружность. Угол $ABD$ равен $61^\circ$, угол $CAD$ равен $37^\circ$. Найдите угол $ABC$. Ответ дайте в градусах.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.22</span>
+                <span class="t">Четырёхугольник $ABCD$ вписан в окружность. Угол $ABC$ равен $120^\circ$, угол $ABD$ равен $43^\circ$. Найдите угол $CAD$. Ответ дайте в градусах.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.23</span>
+                <span class="t">Два угла вписанного в окружность четырёхугольника равны $59^\circ$ и $102^\circ$. Найдите больший из оставшихся углов. Ответ дайте в градусах.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.24</span>
+                <span class="t">Четырёхугольник $ABCD$ вписан в окружность. Угол $BAD$ равен $136^\circ$. Найдите угол $BCD$. Ответ дайте в градусах.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.25</span>
+                <span class="t">Найдите угол $ACO$, если его сторона $CA$ касается окружности с центром $O$, отрезок $CO$ пересекает окружность в точке $B$, а дуга $AB$ окружности, заключённая внутри этого угла, равна $66^\circ$.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.26</span>
+                <span class="t">Угол $ACO$ равен $57^\circ$. Его сторона $CA$ касается окружности с центром в точке $O$. Отрезок $CO$ пересекает окружность в точке $B$. Найдите градусную меру дуги $AB$ окружности, заключённой внутри этого угла. Ответ дайте в градусах.</span>
+            </li>
+            <li class="cat-1 show">
+                <span class="n">1.27</span>
+                <span class="t">В четырёхугольник $ABCD$ вписана окружность, $AB = 10, CD = 17$. Найдите периметр четырёхугольника $ABCD$.</span>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.1</span>
+                <span class="t">Даны векторы $\vec{a}(5; 3)$ и $\vec{b}(4; -6)$. Найдите скалярное произведение $\vec{a} \cdot \vec{b}$.</span>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.2</span>
+                <span class="t">На координатной плоскости изображены векторы $\vec{a}$ и $\vec{b}$, координатами которых являются целые числа. Найдите длину вектора $\vec{a} + 4\vec{b}$.</span>
+                <div class="task-images"><img src="images/2.png" alt="2.2"></div>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.3</span>
+                <span class="t">Даны векторы $\vec{a}(31; 0)$ и $\vec{b}(1; -1)$. Найдите длину вектора $\vec{a} - 24\vec{b}$.</span>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.4</span>
+                <span class="t">Даны векторы $\vec{a}(14; -2)$ и $\vec{b}(5; -8)$. Найдите скалярное произведение $\vec{a} \cdot \vec{b}$.</span>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.5</span>
+                <span class="t">Даны векторы $\vec{a}(-3; 5)$ и $\vec{b}(1; 13)$. Найдите скалярное произведение $\vec{a} \cdot \vec{b}$.</span>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.6</span>
+                <span class="t">На координатной плоскости изображены векторы $\vec{a}$ и $\vec{b}$, координатами которых являются целые числа. Найдите скалярное произведение $\vec{a} \cdot \vec{b}$.</span>
+                <div class="task-images"><img src="images/6.png" alt="2.6"></div>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.7</span>
+                <span class="t">Даны векторы $\vec{a}(2; 0)$ и $\vec{b}(1; 4)$. Найдите длину вектора $\vec{a} + 3\vec{b}$.</span>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.8</span>
+                <span class="t">На координатной плоскости изображены векторы $\vec{a}$ и $\vec{b}$, координатами которых являются целые числа. Найдите скалярное произведение $\vec{a} \cdot \vec{b}$.</span>
+                <div class="task-images"><img src="images/8.png" width="242" height="193" alt="2.8"></div>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.9</span>
+                <span class="t">На координатной плоскости изображены векторы $\vec{a}$ и $\vec{b}$, координатами которых являются целые числа. Найдите скалярное произведение $\vec{a} \cdot \vec{b}$.</span>
+                <div class="task-images"><img src="images/9.png" width="242" height="193" alt="2.9"></div>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.10</span>
+                <span class="t">Даны векторы $\vec{a}(5; -7)$ и $\vec{b}(14; 1)$. Найдите скалярное произведение $\vec{a} \cdot \vec{b}$.</span>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.11</span>
+                <span class="t">Длины векторов $\vec{a}$ и $\vec{b}$ равны 3 и 5, а угол между ними равен 180°C. Найдите скалярное произведение $\vec{a} \cdot \vec{b}$.</span>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.12</span>
+                <span class="t">Длины векторов $\vec{a}$ и $\vec{b}$ равны 3 и 7, а угол между ними равен 60°. Найдите скалярное произведение $\vec{a} \cdot \vec{b}$.</span>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.13</span>
+                <span class="t">Даны векторы $\vec{a}(25; 0)$ и $\vec{b}(1; -5)$. Найдите длину вектора $\vec{a} - 4\vec{b}$.</span>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.14</span>
+                <span class="t">Даны векторы $\vec{a}(-13; 4)$ и $\vec{b}(-6; 1)$. Найдите скалярное произведение $\vec{a} \cdot \vec{b}$.</span>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.15</span>
+                <span class="t">Даны векторы $\vec{a}(1; 1)$ и $\vec{b}(0; 7)$. Найдите длину вектора $8\vec{a} + \vec{b}$.</span>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.16</span>
+                <span class="t">Даны векторы $\vec{a}(2; 1)$ и $\vec{b}(2; -4)$. Найдите скалярное произведение векторов $\vec{a} + \vec{b}$ и $7\vec{a} - \vec{b}$.</span>
+            </li>
+            <li class="cat-2 show">
+                <span class="n">2.17</span>
+                <span class="t">Даны векторы $\vec{a}(6; 4)$ и $\vec{b}(5; -7)$. Найдите скалярное произведение $\vec{a} \cdot \vec{b}$.</span>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.1</span>
+                <span class="t">В прямоугольном параллелепипеде $ABCDA_1B_1C_1D_1$ известно, что $AB = 8, BC = 7, AA_1 = 6$. Найдите объём многогранника, вершинами которого являются точки $A, B, C, A_1, B_1, C_1$.</span>
+                <div class="task-images"><img src="images/33.png" alt="3.1"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.2</span>
+                <span class="t">В прямоугольном параллелепипеде $ABCDA_1B_1C_1D_1$ известно, что $AB = 5, BC = 4, AA_1 = 3$. Найдите объём многогранника, вершинами которого являются точки $A, B, C, D, A_1, B_1$.</span>
+                <div class="task-images"><img src="images/34.png" alt="3.2"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.3</span>
+                <span class="t">Объём куба равен 80. Найдите объём треугольной призмы, отсекаемой от куба плоскостью, проходящей через середины двух рёбер, выходящих из одной вершины, и параллельной третьему ребру, выходящему из этой же вершины.</span>
+                <div class="task-images"><img src="images/35.png" alt="3.3"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.4</span>
+                <span class="t">Через среднюю линию основания треугольной призмы проведена плоскость, параллельная боковому ребру. Найдите объём этой призмы, если объём отсечённой треугольной призмы равен 15.</span>
+                <div class="task-images"><img src="images/36.png" alt="3.4"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.5</span>
+                <span class="t">Площадь боковой поверхности треугольной призмы равна 24. Через среднюю линию основания призмы проведена плоскость, параллельная боковому ребру. Найдите площадь боковой поверхности отсечённой треугольной призмы.</span>
+                <div class="task-images"><img src="images/37.png" alt="3.5"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.6</span>
+                <span class="t">Через среднюю линию основания треугольной призмы проведена плоскость, параллельная боковому ребру. Площадь боковой поверхности отсечённой треугольной призмы равна 36. Найдите площадь боковой поверхности исходной призмы.</span>
+                <div class="task-images"><img src="images/38.png" alt="3.6"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.7</span>
+                <span class="t">Через среднюю линию основания правильной треугольной призмы, объём которой равен 84, проведена плоскость, параллельная боковому ребру. Найдите объём отсечённой треугольной призмы.</span>
+                <div class="task-images"><img src="images/39.png" alt="3.7"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.8</span>
+                <span class="t">Найдите объём многогранника, вершинами которого являются вершины $A, B, C, C_1$ правильной треугольной призмы $ABCA_1B_1C_1$, площадь основания которой равна 6, а боковое ребро равно 9.</span>
+                <div class="task-images"><img src="images/40.png" alt="3.8"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.9</span>
+                <span class="t">Дана правильная треугольная призма $ABCA_1B_1C_1$, площадь основания которой равна 4, а боковое ребро равно 6. Найдите объём многогранника, вершинами которого являются точки $B, C, A_1, B_1, C_1$.</span>
+                <div class="task-images"><img src="images/41.png" alt="3.9"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.10</span>
+                <span class="t">Найдите объём многогранника, вершинами которого являются вершины $A, B, C, D, A_1$ прямоугольного параллелепипеда $ABCDA_1B_1C_1D_1$, у которого $AB = 3, AD = 9, AA_1 = 4$.</span>
+                <div class="task-images"><img src="images/42.png" alt="3.10"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.11</span>
+                <span class="t">В прямоугольном параллелепипеде $ABCDA_1B_1C_1D_1$ известно, что $AB = 6, BC = 5, AA_1 = 4$. Найдите объём многогранника, вершинами которого являются точки $A, B, C, B_1$.</span>
+                <div class="task-images"><img src="images/43.png" alt="3.11"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.12</span>
+                <span class="t">Одна цилиндрическая кружка вдвое выше второй, зато вторая в полтора раза шире. Найдите отношение объёма второй кружки к объёму первой.</span>
+                <div class="task-images"><img src="images/44.png" alt="3.12"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.13</span>
+                <span class="t">Дано два цилиндра. Объём первого цилиндра равен 15. У второго цилиндра высота в 3 раза меньше, а радиус основания в 2 раза больше, чем у первого. Найдите объём второго цилиндра.</span>
+                <div class="task-images"><img src="images/45.png" alt="3.13"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.14</span>
+                <span class="t">Во сколько раз уменьшится объём конуса, если его высота уменьшится в 9 раз, а радиус основания останется прежним?</span>
+                <div class="task-images"><img src="images/46.png" alt="3.14"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.15</span>
+                <span class="t">В сосуде, имеющем форму конуса, уровень жидкости достигает $\frac{1}{3}$ высоты. Объём жидкости равен 4 мл. Сколько миллилитров жидкости нужно долить, чтобы полностью наполнить сосуд?</span>
+                <div class="task-images"><img src="images/47.png" alt="3.15"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.16</span>
+                <span class="t">Цилиндр и конус имеют общие основание и высоту. Высота цилиндра равна радиусу основания. Площадь боковой поверхности цилиндра равна $5\sqrt{2}$. Найдите площадь боковой поверхности конуса.</span>
+                <div class="task-images"><img src="images/48.png" alt="3.16"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.17</span>
+                <span class="t">Цилиндр и конус имеют общие основание и высоту. Высота цилиндра равна радиусу основания. Площадь боковой поверхности конуса равна $3\sqrt{2}$. Найдите площадь боковой поверхности цилиндра.</span>
+                <div class="task-images"><img src="images/49.png" alt="3.17"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.18</span>
+                <span class="t">Цилиндр и конус имеют общие основание и высоту. Объём цилиндра равен 30. Найдите объём конуса.</span>
+                <div class="task-images"><img src="images/50.png" alt="3.18"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.19</span>
+                <span class="t">Цилиндр и конус имеют общие основание и высоту. Объём конуса равен 6. Найдите объём цилиндра.</span>
+                <div class="task-images"><img src="images/51.png" alt="3.19"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.20</span>
+                <span class="t">Шар, объём которого равен 18, вписан в цилиндр. Найдите объём цилиндра.</span>
+                <div class="task-images"><img src="images/52.png" alt="3.20"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.21</span>
+                <span class="t">Цилиндр, объём которого равен 18, описан около шара. Найдите объём шара.</span>
+                <div class="task-images"><img src="images/53.png" alt="3.21"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.22</span>
+                <span class="t">Шар вписан в цилиндр. Площадь полной поверхности цилиндра равна 30. Найдите площадь поверхности шара.</span>
+                <div class="task-images"><img src="images/54.png" alt="3.22"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.23</span>
+                <span class="t">Конус вписан в шар. Радиус основания конуса равен радиусу шара. Объём шара равен 60. Найдите объём конуса.</span>
+                <div class="task-images"><img src="images/55.png" alt="3.23"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.24</span>
+                <span class="t">Конус вписан в шар. Радиус основания конуса равен радиусу шара. Объём конуса равен 12. Найдите объём шара.</span>
+                <div class="task-images"><img src="images/56.png" alt="3.24"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.25</span>
+                <span class="t">Около конуса описана сфера (сфера содержит окружность основания конуса и его вершину). Центр сферы находится в центре основания конуса. Образующая конуса равна $9\sqrt{2}$. Найдите радиус сферы.</span>
+                <div class="task-images"><img src="images/57.png" alt="3.25"></div>
+            </li>
+            <li class="cat-3 show">
+                <span class="n">3.26</span>
+                <span class="t">Площадь сечения шара плоскостью, проходящей через центр шара, равна 12. Найдите площадь поверхности шара.</span>
+                <div class="task-images"><img src="images/59.png" alt="3.26"></div>
+            </li>
+
+            <li class="cat-4 show">
+                <span class="n">4.1</span>
+                <span class="t">На олимпиаде по математике 550 участников разместили в четырёх аудиториях. В первых трёх удалось разместить по 110 человек, оставшихся перевели в запасную аудиторию в другом корпусе. Найдите вероятность того, что случайно выбранный участник писал олимпиаду в запасной аудитории.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">4.2</span>
+                <span class="t">Дима, Марат, Петя, Надя и Света бросили жребий — кому начинать игру. Найдите вероятность того, что начинать игру должен будет мальчик.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">4.3</span>
+                <span class="t">На конференцию приехали учёные из трёх стран: 3 из Дании, 4 из Венгрии и 3 из Болгарии. Порядок докладов определяется жеребьёвкой. Найдите вероятность того, что седьмым окажется доклад учёного из Болгарии.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">4.4</span>
+                <span class="t">В соревнованиях по толканию ядра участвуют спортсмены из четырёх стран: 4 из Аргентины, 7 из Бразилии, 5 из Парагвая и 4 из Уругвая. Порядок, в котором выступают спортсмены, определяется жребием. Найдите вероятность того, что спортсмен, выступающий первым, окажется из Бразилии.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">4.5</span>
+                <span class="t">В среднем из 3000 садовых насосов, поступивших в продажу, 9 подтекают. Найдите вероятность того, что один случайно выбранный для контроля насос не подтекает.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">4.6</span>
+                <span class="t">Фабрика выпускает сумки. В среднем 6 сумки из 75 имеют скрытые дефекты. Найдите вероятность того, что купленная сумка окажется без скрытых дефектов.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">4.7</span>
+                <span class="t">На чемпионате по прыжкам в воду выступают 25 спортсменов, среди них 10 спортсменов из Испании и 6 спортсменов из Бразилии. Порядок выступлений определяется жеребьёвкой. Найдите вероятность того, что одиннадцатым будет выступать спортсмен из Испании.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">4.8</span>
+                <span class="t">В чемпионате по гимнастике участвуют 25 спортсменок: 6 из Венгрии, 9 из Румынии, остальные — из Болгарии. Порядок, в котором выступают спортсменки, определяется жребием. Найдите вероятность того, что спортсменка, выступающая первой, окажется из Болгарии.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">4.9</span>
+                <span class="t">Перед началом футбольного матча судья бросает монетку, чтобы определить, какая из команд начнёт игру с мячом. Команда «Биолог» играет три матча с разными командами. Найдите вероятность того, что в этих матчах команда «Биолог» начнёт игру с мячом все три раза.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">4.10</span>
+                <span class="t">В случайном эксперименте симметричную монету бросают дважды. Найдите вероятность того, что решка выпадет ровно один раз.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">4.11</span>
+                <span class="t">В сборнике билетов по математике всего 48 билетов, в двенадцати из них встречается вопрос по теме «Логарифмы». Найдите вероятность того, что в случайно выбранном на экзамене билете школьнику не достанется вопрос по теме «Логарифмы».</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">4.12</span>
+                <span class="t">В группе туристов 50 человек. Порядок, в котором вертолёт перевозит туристов по 5 человек за рейс, случаен. Найдите вероятность того, что турист В., входящий в состав группы, полетит первым рейсом вертолёта.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">4.13</span>
+                <span class="t">В группе туристов 20 человек. С помощью жребия они выбирают семь человек, которые должны идти в село в магазин за продуктами. Какова вероятность того, что турист Д., входящий в состав группы, пойдёт в магазин? </span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">4.14</span>
+                <span class="t">Вероятность того, что в случайный момент времени температура тела здорового человека окажется ниже чем 36,8°C, равна 0,83. Найдите вероятность того, что в случайный момент времени у здорового человека температура окажется 36,8°C или выше.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">4.15</span>
+                <span class="t">Вероятность того, что на тестировании по математике учащийся А. верно решит больше четырёх задач, равна 0,73. Вероятность того, что А. верно решит больше трёх задач, равна 0,86. Найдите вероятность того, что А. верно решит ровно 4 задачи.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">4.16</span>
+                <span class="t">Из районного центра в деревню ежедневно ходит автобус. Вероятность того, что в понедельник в автобусе окажется меньше 20 пассажиров, равна 0,94. Вероятность того, что окажется меньше 15 пассажиров, равна 0,56. Найдите вероятность того, что число пассажиров будет от 15 до 19 включительно.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">5.1</span>
+                <span class="t">Помещение освещается тремя лампами. Вероятность перегорания каждой лампы в течение года равна 0,7. Лампы перегорают независимо друг от друга. Найдите вероятность того, что в течение года хотя бы одна лампа не перегорит.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">5.2</span>
+                <span class="t">Стрелок стреляет по одному разу в каждую из четырёх мишеней. Вероятность попадания в мишень при каждом отдельном выстреле равна 0,7. Найдите вероятность того, что стрелок попадёт в две первые мишени и не попадёт в две последние.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">5.3</span>
+                <span class="t">Стрелок в тире стреляет по мишени до тех пор, пока не поразит её. Известно, что он попадает в цель с вероятностью 0,5 при каждом отдельном выстреле. Какое наименьшее количество патронов нужно дать стрелку, чтобы он поразил цель с вероятностью не меньше 0,7? </span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">5.4</span>
+                <span class="t">Игральную кость бросили два раза. Известно, что шесть очков не выпало ни разу. Найдите при этом условии вероятность события «сумма очков равна 8».</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">5.5</span>
+                <span class="t">Вероятность того, что в понедельник в автобусе окажется меньше 23 пассажиров, равна 0,87. Вероятность того, что окажется меньше 14 пассажиров, равна 0,61. Найдите вероятность того, что число пассажиров будет от 14 до 22 включительно.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">5.6</span>
+                <span class="t">При выпечке хлеба производится контрольное взвешивание свежей буханки. Вероятность того, что масса окажется меньше 810 г, равна 0,95. Вероятность того, что масса окажется больше 790 г, равна 0,84. Найдите вероятность того, что масса буханки больше 790 г, но меньше 810 г.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">5.7</span>
+                <span class="t">В коробке 5 синих, 9 красных и 11 зелёных фломастеров. Случайным образом выбирают два фломастера. Найдите вероятность того, что окажутся выбраны один синий и один красный фломастеры.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">5.8</span>
+                <span class="t">В торговом центре два одинаковых автомата продают кофе. Вероятность того, что к концу дня в первом автомате закончится кофе, равна 0,2. Вероятность того, что кофе закончится в двух автоматах, равна 0,18. Найдите вероятность того, что к концу дня кофе останется в двух автоматах.</span>
+            </li>
+            <li class="cat-4 show">
+                <span class="n">5.9</span>
+                <span class="t">Автоматическая линия изготавливает батарейки. Вероятность неисправности равна 0,01. Система забракует неисправную батарейку с вероятностью 0,96, а исправную по ошибке — с вероятностью 0,06. Найдите вероятность того, что случайно выбранная батарейка будет забракована системой.</span>
+            </li>
+<li class="cat-6 show">
+    <span class="n">6.1</span>
+    <span class="t">Найдите корень уравнения $(x - 5)^3 = 64$. </span>
+</li>
+<li class="cat-6 show">
+    <span class="n">6.2</span>
+    <span class="t">Найдите корень уравнения $\frac{1}{3x - 4} = 5$. </span>
+</li>
+<li class="cat-6 show">
+    <span class="n">6.3</span>
+    <span class="t">Найдите корень уравнения $6^{x-5} = 36$. </span>
+</li>
+<li class="cat-6 show">
+    <span class="n">6.4</span>
+    <span class="t">Найдите корень уравнения $3^{x+6} = 9^{2x}$. </span>
+</li>
+<li class="cat-6 show">
+    <span class="n">6.5</span>
+    <span class="t">Найдите корень уравнения $(\frac{1}{3})^{3-x} = 81$. </span>
+</li>
+<li class="cat-6 show">
+    <span class="n">6.6</span>
+    <span class="t">Найдите корень уравнения $\sqrt{44 - 5x} = 3$. </span>
+</li>
+<li class="cat-6 show">
+    <span class="n">6.7</span>
+    <span class="t">Найдите корень уравнения $\sqrt[3]{x + 3} = 3$. </span>
+</li>
+<li class="cat-6 show">
+    <span class="n">6.8</span>
+    <span class="t">Решите уравнение $\sqrt{2x + 3} = x$. Если корней окажется несколько, то в ответе запишите наименьший из них. </span>
+</li>
+<li class="cat-6 show">
+    <span class="n">6.9</span>
+    <span class="t">Найдите корень уравнения $\log_5(8 - x) = \log_5 2$. </span>
+</li>
+<li class="cat-6 show">
+    <span class="n">6.10</span>
+    <span class="t">Найдите корень уравнения $\log_8(5x + 47) = 3$. </span>
+</li>
+
+<li class="cat-7 show">
+    <span class="n">7.1</span>
+    <span class="t">Найдите значение выражения $\frac{14^{6,4} \cdot 7^{-5,4}}{2^{4,4}}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.2</span>
+    <span class="t">Найдите значение выражения $(64^{9})^3 : (16^5)^8$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.3</span>
+    <span class="t">Найдите значение выражения $5^{0,06} \cdot 25^{0,97}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.4</span>
+    <span class="t">Найдите значение выражения $\frac{81^{2,6}}{9^{3,7}}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.5</span>
+    <span class="t">Найдите значение выражения $\frac{(3\sqrt{8})^2}{6}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.6</span>
+    <span class="t">Найдите значение выражения $(\sqrt{96} - \sqrt{24}) \cdot \sqrt{6}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.7</span>
+    <span class="t">Найдите значение выражения $\frac{\sqrt[3]{36} \cdot \sqrt[5]{36}}{\sqrt[30]{36}}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.8</span>
+    <span class="t">Найдите значение выражения $\frac{\sqrt[4]{8} \cdot \sqrt[4]{48}}{\sqrt[4]{24}}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.9</span>
+    <span class="t">Найдите значение выражения $25^{2\sqrt{8}+3} \cdot 5^{-3-4\sqrt{8}}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.10</span>
+    <span class="t">Найдите значение выражения $\log_2 6,4 + \log_2 10$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.11</span>
+    <span class="t">Найдите значение выражения $6 \log_{\sqrt[6]{13}} 13$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.12</span>
+    <span class="t">Найдите значение выражения $\frac{\log_7 32}{\log_7 2}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.13</span>
+    <span class="t">Найдите значение выражения $\frac{\log_9 28}{\log_9 7} + \log_7 \frac{7}{4}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.14</span>
+    <span class="t">Найдите значение выражения $\frac{2 \sin 136^\circ}{\sin 68^\circ \cdot \sin 22^\circ}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.15</span>
+    <span class="t">Найдите значение выражения $2\sqrt{3} \cos^2 \frac{13\pi}{12} - \sqrt{3}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.16</span>
+    <span class="t">Найдите значение выражения $4\sqrt{2} - 8\sqrt{2} \sin^2 \frac{7\pi}{8}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.17</span>
+    <span class="t">Найдите значение выражения $4\sqrt{3} \cos^2 \frac{23\pi}{12} - 4\sqrt{3} \sin^2 \frac{23\pi}{12}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.18</span>
+    <span class="t">Найдите значение выражения $3 \sin \frac{13\pi}{12} \cdot \cos \frac{13\pi}{12}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.19</span>
+    <span class="t">Найдите значение выражения $\frac{8 \sin 64^\circ \cdot \cos 64^\circ}{\sin 128^\circ}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.20</span>
+    <span class="t">Найдите $3 \cos 2\alpha$, если $\sin \alpha = 0,2$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.21</span>
+    <span class="t">Найдите $\text{tg } \alpha$, если $\sin \alpha = \frac{\sqrt{26}}{26}$ и $\alpha \in (0; \frac{\pi}{2})$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.22</span>
+    <span class="t">Найдите $\sin \alpha$, если $\cos \alpha = -\frac{\sqrt{21}}{5}$ и $\alpha \in (\frac{\pi}{2}; \pi)$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.23</span>
+    <span class="t">Найдите значение выражения $26\sqrt{2} \cos \frac{\pi}{4} \cos \frac{4\pi}{3}$. </span>
+</li>
+<li class="cat-7 show">
+    <span class="n">7.24</span>
+    <span class="t">Найдите значение выражения $18\sqrt{2} \text{tg } \frac{\pi}{4} \sin \frac{\pi}{4}$. </span>
+</li>
+        </ol>
+    </div>
+
+    <script>
+        function filterTasks(category) {
+            const tasks = document.querySelectorAll('#task-list li');
+            const buttons = document.querySelectorAll('.btn');
+            let count = 0;
+
+            buttons.forEach(btn => {
+                btn.style.background = '#fff';
+                btn.style.color = '#4a5568';
+            });
+            const activeBtn = Array.from(buttons).find(b => b.getAttribute('onclick').includes(category));
+            if (activeBtn) {
+                activeBtn.style.background = '#2b6cb0';
+                activeBtn.style.color = '#fff';
+            }
+
+            tasks.forEach(task => {
+                if (category === 'all' || task.classList.contains(category)) {
+                    task.style.display = 'flex';
+                    count++;
+                } else {
+                    task.style.display = 'none';
+                }
+            });
+
+            document.getElementById('task-count').innerText = count;
+        }
+
+        window.onload = () => filterTasks('all');
+    </script>
+</body>
